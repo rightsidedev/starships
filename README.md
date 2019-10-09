@@ -23,7 +23,7 @@ We want to aim to have it as _flat_ as possible, meaning that the array of ships
 
 ## The JSON Structure
 
-```json
+```json5
 {
   "ships": [
     {
@@ -33,7 +33,7 @@ We want to aim to have it as _flat_ as possible, meaning that the array of ships
       "avgRating": 4 // Determined and updated when reviews are created
     }
   ],
-  users: [
+  "users": [
     {
       "id": 1, // Flask assigned
       "username": "WRiker22", // Required
@@ -42,7 +42,7 @@ We want to aim to have it as _flat_ as possible, meaning that the array of ships
       "reviewsCount": 22 // Determined by flask
     }
   ]
-  reviews: [
+  "reviews": [
     {
       "id": 1 // Assigned by flask
   		"ship": 1, // Required foreign key

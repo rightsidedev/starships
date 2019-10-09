@@ -9,7 +9,7 @@ The JSON should have the following structure.
 
 ### Entity Relation Diagram
 
-![starship_data_model](/Users/james/Documents/Cyber/starship_lesson/docs/starship_data_model.png)
+![starship_data_model](./docs/starship_data_model.png)
 
 You might have seen one of these before. It's an entity relation diagram (ERD). This will become far more important when we get into SQL later but for now there are only a few things you need to gleam from this. Every review has a 'ship' property which stores the id of a starship, and a 'user' property used to identify a user. There are other also properties on each of the three **Models**.
 
@@ -25,31 +25,31 @@ We want to aim to have it as _flat_ as possible, meaning that the array of ships
 
 ```json
 {
-  ships: [
+  "ships": [
     {
-      id: '1', // Flask will have to assign these
-      name: "Enterprise", // Required field when creating
-      age: 68, // Unrequired field
-      avgRating: 4 // Determined and updated when reviews are created
+      "id": 1, // Flask will have to assign these
+      "name": "Enterprise", // Required field when creating
+      "age": 68, // Unrequired field
+      "avgRating": 4 // Determined and updated when reviews are created
     }
   ],
   users: [
     {
-      id: '1', // Flask assigned
-      username: 'WRiker22', // Required
-      firstName: 'William', // Required
-      LastName: 'Riker', // Required
-      reviewsCount: 22 // Determined by flask
+      "id": 1, // Flask assigned
+      "username": "WRiker22", // Required
+      "firstName": "William", // Required
+      "LastName": "Riker", // Required
+      "reviewsCount": 22 // Determined by flask
     }
   ]
   reviews: [
     {
-      id: '1' // Assigned by flask
-  		ship: '1', // Required foreign key
-      user: '1', // Required foreign key
-      title: 'Best time ever', // Required
-      body: 'Been chilling with my home boy Jean Luc and it\'s been the best time o\' me life', // Required
-      rating: 5 // Required
+      "id": 1 // Assigned by flask
+  		"ship": 1, // Required foreign key
+      "user": 1, // Required foreign key
+      "title": "Best time ever", // Required
+      "body": "Been chilling with my home boy Jean Luc and it's been the best time o' me life", // Required
+      "rating": 5 // Required
     }
   ]
 }
@@ -90,8 +90,8 @@ It is up to you to write the functions to **C**reate, **R**ead, **U**pdate, and 
 |--------|----------------|--------------------------------------|-----------------------------------------------------------------------------------------|
 | GET    | /reviews/      | Return array of all reviews          |                                                                                         |
 | GET    | /reviews/{id}/ | Return review of id `id`             |                                                                                         |
-| POST   | /reviews/      | Create review                        | `{ "ship": string, "user": string, "title": string, "body": string, "rating": number }` |
-| PUT    | /reviews/{id}/ | Update review of id with new details | `{ "ship": string, "user": string, "title": string, "body": string, "rating": number }` |
+| POST   | /reviews/      | Create review                        | `{ "ship": number, "user": number, "title": string, "body": string, "rating": number }` |
+| PUT    | /reviews/{id}/ | Update review of id with new details | `{ "ship": number, "user": number, "title": string, "body": string, "rating": number }` |
 | DELETE | /reviews/{id}/ | Delete review of id                  |                                                                                         |
 
 
@@ -236,11 +236,11 @@ You may also notice that for this route we use custom status codes. For a list o
 
  
 
-![starships_get](/Users/james/Documents/Cyber/starship_lesson/docs/starships_get.png)
+![starships_get](./docs/starships_get.png)
 
-![starships_post](/Users/james/Documents/Cyber/starship_lesson/docs/starships_post.png)
+![starships_post](./docs/starships_post.png)
 
-![starships_get_2](/Users/james/Documents/Cyber/starship_lesson/docs/starships_get_2.png)
+![starships_get_2](./docs/starships_get_2.png)
 
 
 

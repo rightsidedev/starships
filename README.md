@@ -44,7 +44,7 @@ We want to aim to have it as _flat_ as possible, meaning that the array of ships
   ]
   "reviews": [
     {
-      "id": 1 // Assigned by flask
+      "id": 1, // Assigned by flask
   		"ship": 1, // Required foreign key
       "user": 1, // Required foreign key
       "title": "Best time ever", // Required

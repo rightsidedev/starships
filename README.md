@@ -9,16 +9,17 @@ The JSON should have the following structure.
 
 ### Entity Relation Diagram
 
-![starship_data_model](/Users/james/Documents/Cyber/starship_lesson/starship_data_model.png)
-
-
+![starship_data_model](/Users/james/Documents/Cyber/starship_lesson/docs/starship_data_model.png)
 
 You might have seen one of these before. It's an entity relation diagram (ERD). This will become far more important when we get into SQL later but for now there are only a few things you need to gleam from this. Every review has a 'ship' property which stores the id of a starship, and a 'user' property used to identify a user. There are other also properties on each of the three **Models**.
 
 How might we decide to structure this as a flat file database? (In this case I am just referring to using a single json file to store all our data, rather than a more extensive SQL or NoSQL database).
 
-
 We want to aim to have it as _flat_ as possible, meaning that the array of ships, the array of users, and the array of reviews should all as follows.
+
+
+
+## Appendix
 
 ## The JSON Structure
 
@@ -127,7 +128,123 @@ with open('db.json', '+') as f:
 ### Flask API revisited
 
 
-Status Codes: http://www.flaskapi.org/api-guide/status-codes/
+
+Recall how you have previously initialized your application, and set up routes.
+
+```bash
+app/
+├── __init__.py
+├── api
+│   ├── __init__.py
+│   ├── errors.py
+│   └── ships.py
+└── starship_reviews.py
+```
+
+
+
+My example code takes a blueprint approach rather than a `routes.py` approach; you are welcome to use either.
+
+The init file in the `app/` directory is used to set up the flask app.
+
+```python
+from flask import Flask
+app = Flask(__name__)
+
+from app.api import api
+app.register_blueprint(api, url_prefix='/api')
+# app/__init__py
+```
+
+
+
+The init file in the `app/api/` directory is used for importing the different routers, such as `ships`
+
+```python
+from flask import Blueprint
+
+api = Blueprint('api', __name__) # What on earth is blueprint
+
+from app.api import ships
+# app/api/__init__.py
+```
+
+
+Let's look at a snippet from the the ships router.
+
+
+
+```python
+from app.api import api # Connecting up with the rest of our app
+from flask_api import status # For using status codes with responses, 404 etc
+from flask import request # So that we can access the request object
+
+"""some other routes"""
+
+@api.route('/ships/', methods=['GET'])
+def get_ships():
+  	"""Fetches ships from database. 
+  	
+  	Retrieves all ships stored in the database and returns them in the form `application/json`.
+  	
+  	Returns:
+    	A dict with a "data" property which stores a list of ships.
+    """
+    return { "data": db['ships'] }
+  
+"""even more routes"""
+```
+
+
+
+You may also want to create routes which obtain a parameter from the URL (e.g. `https:/localhost:5000/api/ships/{id}/`), or you may want to get json data transferred in the form `application/json` by the client. The PUT snippet is a good example of both these in action. 
+
+
+
+```python
+"""Some previous routes"""
+
+@api.route('/ships/<int:id>/', methods=['PUT'])
+def update_ship(id):
+  """Updates the values of a ship of `id`. 
+  	
+  	Retrieves all ships stored in the database with the id of `id` then replaces each of its fields with those in the request data object.
+  	
+  	Args:
+  		id: An integer passed in as a URL param. e.g. `api/ships/{id}`
+  		data: Json data containing the fields you wish to update.
+  	
+  	Returns:
+    	A dict with a "data" property which stores a list of ships.
+    	
+    Raises:
+    	404 NOT FOUND: There was no ship with a matching ID found in the database.
+    """
+    data = request.get_json()
+    print(data)
+    for ship in db['ships']:
+        if ship['id'] == id:
+            if data['name']:
+                ship['name'] == data['name']
+            if data['age']:
+                ship['age'] == data['age']
+            return ship, status.HTTP_202_ACCEPTED
+    return {}, status.HTTP_404_NOT_FOUND
+```
+
+You may also notice that for this route we use custom status codes. For a list of status codes in the static package see http://www.flaskapi.org/api-guide/status-codes/.
+
+ 
+
+![starships_get](/Users/james/Documents/Cyber/starship_lesson/docs/starships_get.png)
+
+![starships_post](/Users/james/Documents/Cyber/starship_lesson/docs/starships_post.png)
+
+![starships_get_2](/Users/james/Documents/Cyber/starship_lesson/docs/starships_get_2.png)
+
+
+
+
 
 ### Beast mode
 

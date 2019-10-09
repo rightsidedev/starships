@@ -1,4 +1,4 @@
 def bad_request():
-    print('errrorrrr')
+    print('Error, bad request')
     pass
 

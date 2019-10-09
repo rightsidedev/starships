@@ -127,8 +127,8 @@ with open('db.json', '+') as f:
 ### Flask API revisited
 
 
+Status Codes: http://www.flaskapi.org/api-guide/status-codes/
 
 ### Beast mode
 
 There are a few places in which our approach is sub-optimal, especially as our dataset increases in size. Make any changes you wish to the code, or the implementation of the database. The only part that needs to stay the same is the endpoints and how they behave (E.g. expecting the same params, and returning the same JSON objects)
-
